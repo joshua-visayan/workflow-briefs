@@ -23,6 +23,7 @@ declare module 'vue' {
     UContainer: typeof import('./node_modules/.pnpm/@nuxt+ui@4.10.0_a28409819e978fc1925d5beb5c8f2135/node_modules/@nuxt/ui/dist/runtime/components/Container.vue')['default']
     UError: typeof import('./node_modules/.pnpm/@nuxt+ui@4.10.0_a28409819e978fc1925d5beb5c8f2135/node_modules/@nuxt/ui/dist/runtime/components/Error.vue')['default']
     UHeader: typeof import('./node_modules/.pnpm/@nuxt+ui@4.10.0_a28409819e978fc1925d5beb5c8f2135/node_modules/@nuxt/ui/dist/runtime/components/Header.vue')['default']
+    UIcon: typeof import('./node_modules/.pnpm/@nuxt+ui@4.10.0_a28409819e978fc1925d5beb5c8f2135/node_modules/@nuxt/ui/dist/runtime/vue/components/Icon.vue')['default']
     UInput: typeof import('./node_modules/.pnpm/@nuxt+ui@4.10.0_a28409819e978fc1925d5beb5c8f2135/node_modules/@nuxt/ui/dist/runtime/components/Input.vue')['default']
     UPage: typeof import('./node_modules/.pnpm/@nuxt+ui@4.10.0_a28409819e978fc1925d5beb5c8f2135/node_modules/@nuxt/ui/dist/runtime/components/Page.vue')['default']
     UPageBody: typeof import('./node_modules/.pnpm/@nuxt+ui@4.10.0_a28409819e978fc1925d5beb5c8f2135/node_modules/@nuxt/ui/dist/runtime/components/PageBody.vue')['default']

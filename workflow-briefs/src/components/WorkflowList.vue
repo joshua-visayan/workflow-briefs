@@ -9,7 +9,7 @@ const goToDetails = () => {
 }
 </script>
 <template>
-  <p class="mb-3">6 postings</p>
+  <p class="mb-3 font-display text-sm">6 postings</p>
   <UPageGrid class="lg:grid-cols-2">
     <WorkflowCard
       @click="goToDetails"

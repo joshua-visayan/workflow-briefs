@@ -16,11 +16,19 @@ const items = ref<TimelineItem[]>([
 </script>
 
 <template>
-  <UHeader title="All postings">
+  <UHeader>
+    <template #title>
+      <UIcon name="i-lucide-arrow-left" class="size-5" />
+      <p class="text-sm text-gray-100 font-light font-display">
+        ALL POSTINGS
+      </p>
+    </template>
   </UHeader>
   <UContainer class="max-w-4xl">
     <UPage>
-      <p class="text-xs font-light mb-2 mt-8 font-display">POSTED JULY 18, 2026</p>
+      <p class="text-xs font-light mb-2 mt-8 font-display">
+        POSTED JULY 18, 2026
+      </p>
       <h1
         class="text-3xl font-bold leading-tight tracking-tight text-foreground sm:text-4xl mb-5 pt-5"
       >
@@ -80,7 +88,10 @@ const items = ref<TimelineItem[]>([
             </template>
           </UTimeline>
           <p class="mb-1 text-xs font-light font-display">OUTPUT</p>
-          <p class="mb-5">Contact created/updated in GoHighLevel with tags, pipeline stage, and triggered SMS + email sequence</p>
+          <p class="mb-5">
+            Contact created/updated in GoHighLevel with tags, pipeline stage,
+            and triggered SMS + email sequence
+          </p>
         </div>
       </UPageBody>
     </UPage>
