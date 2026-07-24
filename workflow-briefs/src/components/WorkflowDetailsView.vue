@@ -53,7 +53,7 @@ const items = ref<TimelineItem[]>([
           follow-up sequence.
         </p>
         <h4 class="text-xl font-semibold mb-4">Suggested Workflow</h4>
-        <div class="bg-green-500/15 border border-green-500 rounded-lg p-4">
+        <div class="bg-green-500/10 border border-green-500 rounded-lg p-4">
           <UBadge
             icon="i-lucide-info"
             size="md"
