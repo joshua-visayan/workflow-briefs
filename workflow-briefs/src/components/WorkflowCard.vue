@@ -15,6 +15,7 @@ const isHovered = ref(false);
     @mouseenter="isHovered = true"
     @mouseleave="isHovered = false"
     variant="subtle"
+    class="cursor-pointer"
   >
     <template #body>
       <div class="flex items-start justify-between w-full gap-4 mb-2">

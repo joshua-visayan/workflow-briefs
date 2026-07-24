@@ -16,11 +16,13 @@ const items = ref<TimelineItem[]>([
 </script>
 
 <template>
-  <UHeader title="All postings" />
-  <UContainer class="max-w-5xl">
+  <UHeader title="All postings">
+  </UHeader>
+  <UContainer class="max-w-4xl">
     <UPage>
+      <p class="text-xs font-light mb-2 mt-8 font-display">POSTED JULY 18, 2026</p>
       <h1
-        class="text-3xl font-bold leading-tight tracking-tight text-foreground sm:text-4xl mb-5 pt-12"
+        class="text-3xl font-bold leading-tight tracking-tight text-foreground sm:text-4xl mb-5 pt-5"
       >
         Route inbound leads from web form into GoHighLevel with AI qualification
       </h1>
@@ -46,14 +48,14 @@ const items = ref<TimelineItem[]>([
       </div>
 
       <UPageBody>
-        <h4 class="text-xl font-semibold mb-2">Summary</h4>
+        <h4 class="text-xs font-light mb-2 font-display">SUMMARY</h4>
         <p>
           Client wants website form submissions scored by an AI, tagged by
           intent, and pushed into GoHighLevel pipelines with the right owner and
           follow-up sequence.
         </p>
-        <h4 class="text-xl font-semibold mb-4">Suggested Workflow</h4>
-        <div class="bg-green-500/10 border border-green-500 rounded-lg p-4">
+        <h4 class="text-xs font-light mb-4 font-display">SUGGESTED WORKFLOW</h4>
+        <div class="bg-green-500/5 border border-green-500 rounded-lg p-4">
           <UBadge
             icon="i-lucide-info"
             size="md"
@@ -62,9 +64,9 @@ const items = ref<TimelineItem[]>([
             class="mb-5 self-start"
             >AI GENERATED BASED ON THE JOB POSTING</UBadge
           >
-          <p class="mb-2 font-semibold">Trigger</p>
-          <p class="mb-5">New submission on Webflow contact form (webhook)</p>
-          <p class="mb-2 font-semibold">Steps</p>
+          <p class="mb-1 text-xs font-light font-display">TRIGGER</p>
+          <p class="mb-10">New submission on Webflow contact form (webhook)</p>
+          <p class="mb-3 text-xs font-light font-display">STEPS</p>
           <UTimeline
             :default-value="2"
             :items="items"
@@ -77,8 +79,8 @@ const items = ref<TimelineItem[]>([
               </span>
             </template>
           </UTimeline>
-          <p class="mb-2 font-semibold">Output</p>
-          <p class="mb-5">New submission on Webflow contact form (webhook)</p>
+          <p class="mb-1 text-xs font-light font-display">OUTPUT</p>
+          <p class="mb-5">Contact created/updated in GoHighLevel with tags, pipeline stage, and triggered SMS + email sequence</p>
         </div>
       </UPageBody>
     </UPage>

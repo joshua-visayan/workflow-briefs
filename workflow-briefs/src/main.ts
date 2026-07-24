@@ -4,7 +4,7 @@ import { createApp } from "vue";
 import { createRouter, createWebHistory } from "vue-router";
 import App from "./App.vue";
 import ui from "@nuxt/ui/vue-plugin";
-// import WorkflowDetailsView from './components/WorkflowDetailsView.vue';
+import WorkflowDetailsView from './components/WorkflowDetailsView.vue';
 import WorkflowsView from './components/WorkflowsView.vue';
 
 const app = createApp(App);
@@ -13,8 +13,12 @@ const routes = [
   {
     path: "/",
     name: "home",
-    // component: WorkflowDetailsView,
     component: WorkflowsView,
+  },
+  {
+    path: "/details",
+    name: "details",
+    component: WorkflowDetailsView,
   }
 ];
 
