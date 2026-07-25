@@ -29,7 +29,7 @@ const isHovered = ref(false);
         </p>
         <p class="text-sm text-muted shrink-0">Jul 18, 2026</p>
       </div>
-      <p class="text-[15px] text-pretty">
+      <p class="text-[15px] line-clamp-2">
         {{ props.description }}
       </p>
     </template>

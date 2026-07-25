@@ -1,6 +1,14 @@
 <script setup lang="ts">
+import { ref, onMounted } from 'vue';
 import FilterButton from './FilterButton.vue';
 import WorkflowList from './WorkflowList.vue';
+import { getWorkflows, type Workflow } from '../api/getWorkflows.ts';
+
+const workflowList = ref<Workflow[]>([]);
+
+onMounted(async () => {
+  workflowList.value = await getWorkflows();
+});
 
 </script>
 
@@ -27,7 +35,7 @@ import WorkflowList from './WorkflowList.vue';
           <FilterButton title="Slack" />
           <FilterButton title="Notion" />
         </div>
-        <WorkflowList />
+        <WorkflowList :workflows="workflowList" />
       </UPageBody>
     </UPage>
   </UContainer>

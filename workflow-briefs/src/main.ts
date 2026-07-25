@@ -16,7 +16,7 @@ const routes = [
     component: WorkflowsView,
   },
   {
-    path: "/details",
+    path: "/details/:id",
     name: "details",
     component: WorkflowDetailsView,
   }
