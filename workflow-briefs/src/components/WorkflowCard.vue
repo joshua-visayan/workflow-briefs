@@ -1,13 +1,23 @@
 <script setup lang="ts">
 import { ref } from "vue";
 
+const PRIORITY_TOOLS = ["n8n", "Zapier", "Make", "Lovable", "GoHighLevel", "Airtable", "Slack", "Notion"]
+
 const props = defineProps({
   title: String,
   description: String,
-  posted_date: String
+  posted_date: String,
+  tools_mentioned: Array<String>
 });
 
 const isHovered = ref(false);
+
+function getToolBadges(): string[] {
+  const tools = (props.tools_mentioned ?? []) as string[];
+  const priority = PRIORITY_TOOLS.filter((t) => tools.includes(t));
+  const hasOther = tools.some((t) => !PRIORITY_TOOLS.includes(t));
+  return hasOther ? [...priority, "Other"] : priority;
+}
 
 function formatDate() {
   const timestamp = props.posted_date;
@@ -48,21 +58,12 @@ function formatDate() {
     <template #footer>
       <div class="flex items-center flex-wrap gap-2">
         <UBadge
-          label="GoHighLevel"
-          color="success"
-          variant="solid"
-          class="rounded-full"
-        />
-        <UBadge
-          label="Make"
-          color="neutral"
-          variant="outline"
-          class="rounded-full"
-        />
-        <UBadge
-          label="OpenAI"
-          color="neutral"
-          variant="outline"
+          v-for="tool in getToolBadges()"
+          :key="tool"
+          :label="tool"
+          size="md"
+          :color="tool != 'Other' ? 'success' : 'neutral'"
+          :variant="tool != 'Other' ? 'solid' : 'outline'"
           class="rounded-full"
         />
       </div>

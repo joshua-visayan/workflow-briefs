@@ -35,6 +35,7 @@ onMounted(async () => {
       :title="workflow.title"
       :description="workflow.workflow_summary"
       :posted_date="workflow.posted_date"
+      :tools_mentioned="workflow.tools_mentioned"
     />
   </UPageGrid>
   <div class="flex justify-center w-full">

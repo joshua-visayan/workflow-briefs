@@ -109,7 +109,7 @@ onMounted(async () => {
             </template>
           </UTimeline>
           <p class="mb-1 text-xs font-light font-display">OUTPUT</p>
-          <p class="mb-5">
+          <p class="mb-8">
             {{
               workflowDetails?.suggested_output?.replace(/^\w/, (c) =>
                 c.toUpperCase(),
@@ -118,7 +118,7 @@ onMounted(async () => {
           </p>
           <p class="mb-1 text-xs font-light font-display">NOTES</p>
           <p class="mb-5">
-            {{ workflowDetails?.notes }}
+            {{ workflowDetails?.notes == "" ? "No notes specified" : workflowDetails?.notes }}
           </p>
         </div>
       </UPageBody>
