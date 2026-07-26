@@ -4,9 +4,20 @@ import { ref } from "vue";
 const props = defineProps({
   title: String,
   description: String,
+  posted_date: String
 });
 
 const isHovered = ref(false);
+
+function formatDate() {
+  const timestamp = props.posted_date;
+  if (!timestamp) return "";
+  return new Date(timestamp).toLocaleDateString("en-PH", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+}
 
 </script>
 <template>
@@ -27,7 +38,7 @@ const isHovered = ref(false);
         >
           {{ props.title }}
         </p>
-        <p class="text-sm text-muted shrink-0">Jul 18, 2026</p>
+        <p class="text-sm text-muted shrink-0">{{ formatDate() }}</p>
       </div>
       <p class="text-[15px] line-clamp-2">
         {{ props.description }}

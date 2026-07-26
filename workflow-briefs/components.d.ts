@@ -30,6 +30,7 @@ declare module 'vue' {
     UPageCard: typeof import('./node_modules/.pnpm/@nuxt+ui@4.10.0_a28409819e978fc1925d5beb5c8f2135/node_modules/@nuxt/ui/dist/runtime/components/PageCard.vue')['default']
     UPageGrid: typeof import('./node_modules/.pnpm/@nuxt+ui@4.10.0_a28409819e978fc1925d5beb5c8f2135/node_modules/@nuxt/ui/dist/runtime/components/PageGrid.vue')['default']
     UPageHeader: typeof import('./node_modules/.pnpm/@nuxt+ui@4.10.0_a28409819e978fc1925d5beb5c8f2135/node_modules/@nuxt/ui/dist/runtime/components/PageHeader.vue')['default']
+    UPagination: typeof import('./node_modules/.pnpm/@nuxt+ui@4.10.0_a28409819e978fc1925d5beb5c8f2135/node_modules/@nuxt/ui/dist/runtime/components/Pagination.vue')['default']
     UTimeline: typeof import('./node_modules/.pnpm/@nuxt+ui@4.10.0_a28409819e978fc1925d5beb5c8f2135/node_modules/@nuxt/ui/dist/runtime/components/Timeline.vue')['default']
     WorkflowCard: typeof import('./src/components/WorkflowCard.vue')['default']
     WorkflowDetailsView: typeof import('./src/components/WorkflowDetailsView.vue')['default']

@@ -16,6 +16,20 @@ const items = ref<TimelineItem[]>([]);
 const convertSteps = (steps: string[]): TimelineItem[] =>
   steps.map((step) => ({ title: step }));
 
+const goToOriginalPost = () => {
+  window.open(workflowDetails.value?.source_url, "_blank")
+}
+
+function formatDate() {
+  const timestamp = workflowDetails.value?.posted_date;
+  if (!timestamp) return "";
+  return new Date(timestamp).toLocaleDateString("en-PH", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+}
+
 onMounted(async () => {
   workflowDetails.value = await getWorkflowDetails(id);
   items.value = convertSteps(workflowDetails.value.suggested_steps);
@@ -32,7 +46,7 @@ onMounted(async () => {
   <UContainer class="max-w-4xl">
     <UPage>
       <p class="text-xs font-light mb-2 mt-8 font-display">
-        POSTED JULY 18, 2026
+        POSTED {{ formatDate().toUpperCase() }}
       </p>
       <h1
         class="text-3xl font-bold leading-tight tracking-tight text-foreground sm:text-4xl mb-5 pt-5"
@@ -60,8 +74,8 @@ onMounted(async () => {
           v-if="workflowDetails?.confidence != 'high'"
         >
           <p class="text-xs text-yellow-200">
-            AI confidence is not high so it is recommended to check the original
-            job post for full context before relying on this workflow breakdown.
+            AI confidence is not high so it is recommended to check the <span class="underline cursor-pointer" @click="goToOriginalPost">original
+            job post</span> for full context before relying on this workflow breakdown. 
           </p>
         </div>
         <div class="bg-green-500/5 border border-green-500 rounded-lg p-4">
@@ -101,6 +115,10 @@ onMounted(async () => {
                 c.toUpperCase(),
               )
             }}
+          </p>
+          <p class="mb-1 text-xs font-light font-display">NOTES</p>
+          <p class="mb-5">
+            {{ workflowDetails?.notes }}
           </p>
         </div>
       </UPageBody>
