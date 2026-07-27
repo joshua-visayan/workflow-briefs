@@ -12,6 +12,7 @@ const id = Number(route.params.id);
 
 const workflowDetails = ref<WorkflowDetails | null>(null);
 const items = ref<TimelineItem[]>([]);
+const loading = ref(true);
 
 const convertSteps = (steps: string[]): TimelineItem[] =>
   steps.map((step) => ({ title: step }));
@@ -33,6 +34,7 @@ function formatDate() {
 onMounted(async () => {
   workflowDetails.value = await getWorkflowDetails(id);
   items.value = convertSteps(workflowDetails.value.suggested_steps);
+  loading.value = false;
 });
 </script>
 
@@ -45,83 +47,119 @@ onMounted(async () => {
   </UHeader>
   <UContainer class="max-w-4xl">
     <UPage>
-      <p class="text-xs font-light mb-2 mt-8 font-display">
-        POSTED {{ formatDate().toUpperCase() }}
-      </p>
-      <h1
-        class="text-3xl font-bold leading-tight tracking-tight text-foreground sm:text-4xl mb-5 pt-5"
-      >
-        {{ workflowDetails?.title }}
-      </h1>
-      <div class="flex items-center flex-wrap gap-2">
-        <UBadge
-          v-for="tool in workflowDetails?.tools_mentioned"
-          :label="tool"
-          color="success"
-          variant="solid"
-          class="rounded-full"
-        />
-      </div>
+      <!-- Loading skeleton -->
+      <template v-if="loading">
+        <USkeleton class="h-3 w-32 mt-8 mb-2" />
+        <USkeleton class="h-10 w-3/4 mb-3 pt-5" />
+        <USkeleton class="h-10 w-1/2 mb-5" />
+        <div class="flex items-center flex-wrap gap-2 mb-4">
+          <USkeleton v-for="n in 4" :key="n" class="h-5 w-16 rounded-full" />
+        </div>
+        <UPageBody>
+          <USkeleton class="h-3 w-20 mb-2" />
+          <USkeleton class="h-4 w-full mb-1" />
+          <USkeleton class="h-4 w-5/6 mb-6" />
+          <USkeleton class="h-3 w-36 mb-4" />
+          <div class="rounded-lg p-4">
+            <USkeleton class="h-6 w-48 mb-5 rounded-full" />
+            <USkeleton class="h-3 w-16 mb-2" />
+            <USkeleton class="h-4 w-3/4 mb-10" />
+            <USkeleton class="h-3 w-12 mb-3" />
+            <div class="flex flex-col gap-4 mb-5">
+              <div v-for="n in 5" :key="n" class="flex items-start gap-3">
+                <USkeleton class="h-6 w-6 rounded-md shrink-0" />
+                <USkeleton class="h-4 w-full" />
+              </div>
+            </div>
+            <USkeleton class="h-3 w-16 mb-2" />
+            <USkeleton class="h-4 w-2/3 mb-8" />
+            <USkeleton class="h-3 w-14 mb-2" />
+            <USkeleton class="h-4 w-full mb-1" />
+            <USkeleton class="h-4 w-4/5 mb-5" />
+          </div>
+        </UPageBody>
+      </template>
 
-      <UPageBody>
-        <h4 class="text-xs font-light mb-2 font-display">SUMMARY</h4>
-        <p>
-          {{ workflowDetails?.workflow_summary }}
+      <!-- Loaded content -->
+      <template v-else>
+        <p class="text-xs font-light mb-2 mt-8 font-display">
+          POSTED {{ formatDate().toUpperCase() }}
         </p>
-        <h4 class="text-xs font-light mb-4 font-display">SUGGESTED WORKFLOW</h4>
-        <div
-          class="bg-yellow-500/5 border border-yellow-500 rounded-lg p-4 mb-2"
-          v-if="workflowDetails?.confidence != 'high'"
+        <h1
+          class="text-3xl font-bold leading-tight tracking-tight text-foreground sm:text-4xl mb-5 pt-5"
         >
-          <p class="text-xs text-yellow-200">
-            AI confidence is not high so it is recommended to check the <span class="underline cursor-pointer" @click="goToOriginalPost">original
-            job post</span> for full context before relying on this workflow breakdown. 
-          </p>
-        </div>
-        <div class="bg-green-500/5 border border-green-500 rounded-lg p-4">
+          {{ workflowDetails?.title }}
+        </h1>
+        <div class="flex items-center flex-wrap gap-2">
           <UBadge
-            icon="i-lucide-info"
-            size="md"
-            color="primary"
+            v-for="tool in workflowDetails?.tools_mentioned"
+            :label="tool"
+            color="success"
             variant="solid"
-            class="mb-5 self-start"
-            >AI GENERATED BASED ON THE JOB POSTING</UBadge
-          >
-          <p class="mb-1 text-xs font-light font-display">TRIGGER</p>
-          <p class="mb-10">
-            {{
-              workflowDetails?.suggested_trigger?.replace(/^\w/, (c) =>
-                c.toUpperCase(),
-              )
-            }}
-          </p>
-          <p class="mb-3 text-xs font-light font-display">STEPS</p>
-          <UTimeline
-            :default-value="items.length"
-            :items="items"
-            class="w-full mb-5"
-            :ui="{ indicator: '!rounded-md' }"
-          >
-            <template #indicator="{ item }">
-              <span class="text-xs font-semibold leading-none">
-                {{ (items.indexOf(item) + 1).toString().padStart(2, "0") }}
-              </span>
-            </template>
-          </UTimeline>
-          <p class="mb-1 text-xs font-light font-display">OUTPUT</p>
-          <p class="mb-8">
-            {{
-              workflowDetails?.suggested_output?.replace(/^\w/, (c) =>
-                c.toUpperCase(),
-              )
-            }}
-          </p>
-          <p class="mb-1 text-xs font-light font-display">NOTES</p>
-          <p class="mb-5">
-            {{ workflowDetails?.notes == "" ? "No notes specified" : workflowDetails?.notes }}
-          </p>
+            class="rounded-full"
+          />
         </div>
-      </UPageBody>
+
+        <UPageBody>
+          <h4 class="text-xs font-light mb-2 font-display">SUMMARY</h4>
+          <p>
+            {{ workflowDetails?.workflow_summary }}
+          </p>
+          <h4 class="text-xs font-light mb-4 font-display">SUGGESTED WORKFLOW</h4>
+          <div
+            class="bg-yellow-500/5 border border-yellow-500 rounded-lg p-4 mb-2"
+            v-if="workflowDetails?.confidence != 'high'"
+          >
+            <p class="text-xs text-yellow-200">
+              AI confidence is not high so it is recommended to check the <span class="underline cursor-pointer" @click="goToOriginalPost">original
+              job post</span> for full context before relying on this workflow breakdown.
+            </p>
+          </div>
+          <div class="bg-green-500/5 border border-green-500 rounded-lg p-4">
+            <UBadge
+              icon="i-lucide-info"
+              size="md"
+              color="primary"
+              variant="solid"
+              class="mb-5 self-start"
+              >AI GENERATED BASED ON THE JOB POSTING</UBadge
+            >
+            <p class="mb-1 text-xs font-light font-display">TRIGGER</p>
+            <p class="mb-10">
+              {{
+                workflowDetails?.suggested_trigger?.replace(/^\w/, (c) =>
+                  c.toUpperCase(),
+                )
+              }}
+            </p>
+            <p class="mb-3 text-xs font-light font-display">STEPS</p>
+            <UTimeline
+              :default-value="items.length"
+              :items="items"
+              class="w-full mb-5"
+              :ui="{ indicator: '!rounded-md' }"
+            >
+              <template #indicator="{ item }">
+                <span class="text-xs font-semibold leading-none">
+                  {{ (items.indexOf(item) + 1).toString().padStart(2, "0") }}
+                </span>
+              </template>
+            </UTimeline>
+            <p class="mb-1 text-xs font-light font-display">OUTPUT</p>
+            <p class="mb-8">
+              {{
+                workflowDetails?.suggested_output?.replace(/^\w/, (c) =>
+                  c.toUpperCase(),
+                )
+              }}
+            </p>
+            <p class="mb-1 text-xs font-light font-display">NOTES</p>
+            <p class="mb-5">
+              {{ workflowDetails?.notes == "" ? "No notes specified" : workflowDetails?.notes }}
+            </p>
+          </div>
+        </UPageBody>
+      </template>
     </UPage>
   </UContainer>
 </template>

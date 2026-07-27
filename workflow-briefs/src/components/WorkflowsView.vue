@@ -25,6 +25,7 @@ import WorkflowList from './WorkflowList.vue';
           <FilterButton title="Airtable" />
           <FilterButton title="Slack" />
           <FilterButton title="Notion" />
+          <FilterButton title="Other" />
         </div>
         <WorkflowList />
       </UPageBody>
