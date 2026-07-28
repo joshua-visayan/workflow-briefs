@@ -18,8 +18,8 @@ const convertSteps = (steps: string[]): TimelineItem[] =>
   steps.map((step) => ({ title: step }));
 
 const goToOriginalPost = () => {
-  window.open(workflowDetails.value?.source_url, "_blank")
-}
+  window.open(workflowDetails.value?.source_url, "_blank");
+};
 
 function formatDate() {
   const timestamp = workflowDetails.value?.posted_date;
@@ -102,17 +102,33 @@ onMounted(async () => {
 
         <UPageBody>
           <h4 class="text-xs font-light mb-2 font-display">SUMMARY</h4>
-          <p>
+          <p class="mb-4">
             {{ workflowDetails?.workflow_summary }}
           </p>
-          <h4 class="text-xs font-light mb-4 font-display">SUGGESTED WORKFLOW</h4>
+          <!-- NEW -->
+          <div class="mt-2">
+            <UButton
+              icon="i-lucide-external-link"
+              label="View Original Post"
+              color="neutral"
+              variant="outline"
+              size="md"
+              @click="goToOriginalPost"
+            />
+          </div>
+          <h4 class="text-xs font-light mb-4 font-display">
+            SUGGESTED WORKFLOW
+          </h4>
           <div
             class="bg-yellow-500/5 border border-yellow-500 rounded-lg p-4 mb-2"
             v-if="workflowDetails?.confidence != 'high'"
           >
             <p class="text-xs text-yellow-200">
-              AI confidence is not high so it is recommended to check the <span class="underline cursor-pointer" @click="goToOriginalPost">original
-              job post</span> for full context before relying on this workflow breakdown.
+              AI confidence is not high so it is recommended to check the
+              <span class="underline cursor-pointer" @click="goToOriginalPost"
+                >original job post</span
+              >
+              for full context before relying on this workflow breakdown.
             </p>
           </div>
           <div class="bg-green-500/5 border border-green-500 rounded-lg p-4">
@@ -155,7 +171,11 @@ onMounted(async () => {
             </p>
             <p class="mb-1 text-xs font-light font-display">NOTES</p>
             <p class="mb-5">
-              {{ workflowDetails?.notes == "" ? "No notes specified" : workflowDetails?.notes }}
+              {{
+                workflowDetails?.notes == ""
+                  ? "No notes specified"
+                  : workflowDetails?.notes
+              }}
             </p>
           </div>
         </UPageBody>

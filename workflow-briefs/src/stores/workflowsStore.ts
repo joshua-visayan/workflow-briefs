@@ -9,6 +9,7 @@ export interface Workflow {
   workflow_summary: string;
   tools_mentioned: string[];
   posted_date: string;
+  confidence: string;
 }
 
 const PAGE_SIZE = 20;
@@ -20,6 +21,7 @@ export const useWorkflowsStore = defineStore("workflows", () => {
   const currentPage = ref(1);
   const totalCount = ref(0);
   const activeFilters = ref<string[]>([]);
+  const activeConfidence = ref<string[]>([]);
 
   const totalPages = computed(() => Math.ceil(totalCount.value / PAGE_SIZE));
 
@@ -33,13 +35,17 @@ export const useWorkflowsStore = defineStore("workflows", () => {
       let query = supabase
         .from("jobs")
         .select(
-          "id, upwork_id, title, workflow_summary, tools_mentioned, posted_date",
+          "id, upwork_id, title, workflow_summary, tools_mentioned, posted_date, confidence",
           { count: "exact" },
         )
         .eq("qualifies", true);
 
       if (activeFilters.value.length > 0) {
         query = query.overlaps("tools_mentioned", activeFilters.value);
+      }
+
+      if (activeConfidence.value.length > 0) {
+        query = query.in("confidence", activeConfidence.value);
       }
 
       const { data, error, count } = await query.range(from, to);
@@ -58,5 +64,5 @@ export const useWorkflowsStore = defineStore("workflows", () => {
     }
   }
 
-  return { workflows, loading, connError, currentPage, totalCount, totalPages, activeFilters, fetchWorkflows };
+  return { workflows, loading, connError, currentPage, totalCount, totalPages, activeFilters, activeConfidence, fetchWorkflows };
 });
