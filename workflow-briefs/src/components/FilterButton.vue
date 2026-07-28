@@ -1,17 +1,24 @@
 <script setup lang="ts">
 const props = defineProps({
   title: String,
+  active: { type: Boolean, default: false },
 });
 
 const emit = defineEmits<{
-  (e: "click", id: number): void;
+  (e: "toggle", title: string): void;
 }>();
 </script>
 <template>
   <UButton
-    class="font-bold rounded-full hover:text-green-500 hover:ring-green-500 focus:bg-green-500 focus:text-black focus:ring-green-500"
-    variant="outline"
-    color="neutral"
+    :class="[
+      'font-bold rounded-full',
+      props.active
+        ? 'bg-green-500 text-black ring-green-500 hover:bg-green-400'
+        : 'hover:text-green-500 hover:ring-green-500',
+    ]"
+    :variant="props.active ? 'solid' : 'outline'"
+    :color="props.active ? 'primary' : 'neutral'"
+    @click="emit('toggle', props.title!)"
   >
     {{ props.title }}
   </UButton>

@@ -50,20 +50,25 @@ onMounted(async () => {
 
   <!-- Loaded content -->
   <template v-else>
-    <p class="mb-3 font-display text-sm">Showing {{ fromPost }}-{{ toPost }} of {{ store.totalCount }} posts</p>
-    <UPageGrid class="lg:grid-cols-2">
-      <WorkflowCard
-        v-for="workflow in store.workflows"
-        :key="workflow.id"
-        @click="goToDetails(workflow.id)"
-        :title="workflow.title"
-        :description="workflow.workflow_summary"
-        :posted_date="workflow.posted_date"
-        :tools_mentioned="workflow.tools_mentioned"
-      />
-    </UPageGrid>
-    <div class="flex justify-center w-full">
-      <UPagination size="xl" v-model:page="currentPage" :items-per-page="20" :total="store.totalCount" />
-    </div>
+    <template v-if="store.workflows.length === 0">
+      <p class="text-muted text-sm">No workflows match the selected filters. Try removing a filter or clearing them all.</p>
+    </template>
+    <template v-else>
+      <p class="mb-3 font-display text-sm">Showing {{ fromPost }}-{{ toPost }} of {{ store.totalCount }} posts</p>
+      <UPageGrid class="lg:grid-cols-2">
+        <WorkflowCard
+          v-for="workflow in store.workflows"
+          :key="workflow.id"
+          @click="goToDetails(workflow.id)"
+          :title="workflow.title"
+          :description="workflow.workflow_summary"
+          :posted_date="workflow.posted_date"
+          :tools_mentioned="workflow.tools_mentioned"
+        />
+      </UPageGrid>
+      <div class="flex justify-center w-full">
+        <UPagination size="xl" v-model:page="currentPage" :items-per-page="20" :total="store.totalCount" />
+      </div>
+    </template>
   </template>
 </template>
