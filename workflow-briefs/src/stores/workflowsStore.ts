@@ -19,7 +19,6 @@ export const useWorkflowsStore = defineStore("workflows", () => {
   const connError = ref<string | null>(null);
   const currentPage = ref(1);
   const totalCount = ref(0);
-
   const totalPages = computed(() => Math.ceil(totalCount.value / PAGE_SIZE));
 
   async function fetchWorkflows(page = currentPage.value) {

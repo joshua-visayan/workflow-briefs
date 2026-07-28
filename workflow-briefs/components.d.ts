@@ -13,7 +13,6 @@ declare module 'vue' {
   export interface GlobalComponents {
     copy: typeof import('./src/components/HelloWorld copy.vue')['default']
     FilterButton: typeof import('./src/components/FilterButton.vue')['default']
-    HelloWorld: typeof import('./src/components/HelloWorld.vue')['default']
     'HelloWorld copy': typeof import('./src/components/HelloWorld copy.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
@@ -21,10 +20,8 @@ declare module 'vue' {
     UBadge: typeof import('./node_modules/.pnpm/@nuxt+ui@4.10.0_ec06461da0f942a010660e2aa112a4c0/node_modules/@nuxt/ui/dist/runtime/components/Badge.vue')['default']
     UButton: typeof import('./node_modules/.pnpm/@nuxt+ui@4.10.0_ec06461da0f942a010660e2aa112a4c0/node_modules/@nuxt/ui/dist/runtime/components/Button.vue')['default']
     UContainer: typeof import('./node_modules/.pnpm/@nuxt+ui@4.10.0_ec06461da0f942a010660e2aa112a4c0/node_modules/@nuxt/ui/dist/runtime/components/Container.vue')['default']
-    UError: typeof import('./node_modules/.pnpm/@nuxt+ui@4.10.0_a28409819e978fc1925d5beb5c8f2135/node_modules/@nuxt/ui/dist/runtime/components/Error.vue')['default']
     UHeader: typeof import('./node_modules/.pnpm/@nuxt+ui@4.10.0_ec06461da0f942a010660e2aa112a4c0/node_modules/@nuxt/ui/dist/runtime/components/Header.vue')['default']
     UIcon: typeof import('./node_modules/.pnpm/@nuxt+ui@4.10.0_ec06461da0f942a010660e2aa112a4c0/node_modules/@nuxt/ui/dist/runtime/vue/components/Icon.vue')['default']
-    UInput: typeof import('./node_modules/.pnpm/@nuxt+ui@4.10.0_ec06461da0f942a010660e2aa112a4c0/node_modules/@nuxt/ui/dist/runtime/components/Input.vue')['default']
     UPage: typeof import('./node_modules/.pnpm/@nuxt+ui@4.10.0_ec06461da0f942a010660e2aa112a4c0/node_modules/@nuxt/ui/dist/runtime/components/Page.vue')['default']
     UPageBody: typeof import('./node_modules/.pnpm/@nuxt+ui@4.10.0_ec06461da0f942a010660e2aa112a4c0/node_modules/@nuxt/ui/dist/runtime/components/PageBody.vue')['default']
     UPageCard: typeof import('./node_modules/.pnpm/@nuxt+ui@4.10.0_ec06461da0f942a010660e2aa112a4c0/node_modules/@nuxt/ui/dist/runtime/components/PageCard.vue')['default']

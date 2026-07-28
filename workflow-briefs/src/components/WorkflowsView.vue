@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import FilterButton from './FilterButton.vue';
 import WorkflowList from './WorkflowList.vue';
 
 </script>
@@ -14,19 +13,6 @@ import WorkflowList from './WorkflowList.vue';
       />
 
       <UPageBody>
-        <!-- TODO: Make filters section responsive -->
-        <div class="flex items-center justify-start gap-2 mb-10">
-          <p>Filters</p>
-          <FilterButton title="n8n" />
-          <FilterButton title="Zapier" />
-          <FilterButton title="Make" />
-          <FilterButton title="Lovable" />
-          <FilterButton title="GoHighLevel" />
-          <FilterButton title="Airtable" />
-          <FilterButton title="Slack" />
-          <FilterButton title="Notion" />
-          <FilterButton title="Other" />
-        </div>
         <WorkflowList />
       </UPageBody>
     </UPage>
