@@ -13,7 +13,6 @@ declare module 'vue' {
   export interface GlobalComponents {
     copy: typeof import('./src/components/HelloWorld copy.vue')['default']
     FilterButton: typeof import('./src/components/FilterButton.vue')['default']
-    'HelloWorld copy': typeof import('./src/components/HelloWorld copy.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     UApp: typeof import('./node_modules/.pnpm/@nuxt+ui@4.10.0_ec06461da0f942a010660e2aa112a4c0/node_modules/@nuxt/ui/dist/runtime/components/App.vue')['default']
@@ -30,6 +29,7 @@ declare module 'vue' {
     UPagination: typeof import('./node_modules/.pnpm/@nuxt+ui@4.10.0_ec06461da0f942a010660e2aa112a4c0/node_modules/@nuxt/ui/dist/runtime/components/Pagination.vue')['default']
     USkeleton: typeof import('./node_modules/.pnpm/@nuxt+ui@4.10.0_ec06461da0f942a010660e2aa112a4c0/node_modules/@nuxt/ui/dist/runtime/components/Skeleton.vue')['default']
     UTimeline: typeof import('./node_modules/.pnpm/@nuxt+ui@4.10.0_ec06461da0f942a010660e2aa112a4c0/node_modules/@nuxt/ui/dist/runtime/components/Timeline.vue')['default']
+    UTooltip: typeof import('./node_modules/.pnpm/@nuxt+ui@4.10.0_ec06461da0f942a010660e2aa112a4c0/node_modules/@nuxt/ui/dist/runtime/components/Tooltip.vue')['default']
     WorkflowCard: typeof import('./src/components/WorkflowCard.vue')['default']
     WorkflowDetailsView: typeof import('./src/components/WorkflowDetailsView.vue')['default']
     WorkflowList: typeof import('./src/components/WorkflowList.vue')['default']

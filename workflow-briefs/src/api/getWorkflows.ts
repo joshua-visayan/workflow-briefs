@@ -11,9 +11,8 @@ export interface Workflow {
 
 export async function getWorkflows(): Promise<Workflow[]> {
   const { data, error } = await supabase
-    .from("jobs")
-    .select("id, upwork_id, title, workflow_summary, tools_mentioned, posted_date")
-    .eq('qualifies', true);
+    .from("public_jobs")
+    .select("id, upwork_id, title, workflow_summary, tools_mentioned, posted_date");
 
   if (error) throw new Error(error.message);
 

@@ -1,12 +1,21 @@
 <script setup lang="ts">
-import WorkflowList from './WorkflowList.vue';
-import FilterButton from './FilterButton.vue';
-import { useWorkflowsStore } from '../stores/workflowsStore.ts';
+import WorkflowList from "./WorkflowList.vue";
+import FilterButton from "./FilterButton.vue";
+import { useWorkflowsStore } from "../stores/workflowsStore.ts";
 
 const store = useWorkflowsStore();
 
-const FILTER_TOOLS = ['n8n', 'Zapier', 'Make', 'Lovable', 'GoHighLevel', 'Airtable', 'Slack', 'Notion'];
-const CONFIDENCE_LEVELS = ['high', 'medium'];
+const FILTER_TOOLS = [
+  "n8n",
+  "Zapier",
+  "Make",
+  "Lovable",
+  "GoHighLevel",
+  "Airtable",
+  "Slack",
+  "Notion",
+];
+const CONFIDENCE_LEVELS = ["high", "medium"];
 
 function toggleFilter(title: string) {
   const idx = store.activeFilters.indexOf(title);
@@ -51,7 +60,18 @@ function toggleConfidence(level: string) {
             @toggle="toggleFilter"
           />
         </div>
-        <p class="mb-2 text-sm">AI Confidence</p>
+        <div class="flex items-center gap-1 mb-2">
+          <p class="text-sm">AI Confidence</p>
+          <UTooltip
+            :delay-duration="200"
+            text="High confidence jobs describe the workflow in detail, making the brief more complete and actionable. Medium confidence jobs are less specific."
+          >
+            <UIcon
+              name="i-lucide-info"
+              class="size-4 text-gray-400 cursor-default"
+            />
+          </UTooltip>
+        </div>
         <div class="flex items-center justify-start gap-2 mb-10">
           <FilterButton
             v-for="level in CONFIDENCE_LEVELS"

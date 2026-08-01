@@ -17,7 +17,7 @@ export interface WorkflowDetails {
 
 export async function getWorkflowDetails(id: number): Promise<WorkflowDetails> {
   const { data, error } = await supabase
-    .from("jobs")
+    .from("public_jobs")
     .select(
       "id, upwork_id, title, workflow_summary,source_url, posted_date, suggested_trigger, suggested_steps, suggested_output, notes, tools_mentioned, confidence",
     )
