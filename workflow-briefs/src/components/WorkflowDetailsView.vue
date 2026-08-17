@@ -6,8 +6,10 @@ import {
   getWorkflowDetails,
   type WorkflowDetails,
 } from "../api/getWorkflowDetails.ts";
+import { useUiStore } from "../stores/uiStore.ts";
 
 const route = useRoute();
+const uiStore = useUiStore();
 const id = Number(route.params.id);
 
 const workflowDetails = ref<WorkflowDetails | null>(null);
@@ -39,7 +41,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <UHeader>
+  <UHeader :toggle="false">
     <template #title>
       <UIcon name="i-lucide-arrow-left" class="size-5" />
       <p class="text-sm text-gray-100 font-light font-display">ALL POSTINGS</p>
@@ -132,14 +134,23 @@ onMounted(async () => {
             </p>
           </div>
           <div class="bg-green-500/5 border border-green-500 rounded-lg p-4">
-            <UBadge
-              icon="i-lucide-info"
-              size="md"
-              color="primary"
-              variant="solid"
-              class="mb-5 self-start"
-              >AI GENERATED BASED ON THE JOB POSTING</UBadge
-            >
+            <div class="flex items-center justify-between mb-3 sm:mb-5">
+              <UBadge
+                icon="i-lucide-info"
+                size="md"
+                color="primary"
+                variant="solid"
+                >AI GENERATED BASED ON THE JOB POSTING</UBadge
+              >
+              <div class="hidden sm:flex items-center gap-2">
+                <span class="text-xs text-muted font-display">STEP DESCRIPTIONS</span>
+                <USwitch v-model="uiStore.showStepDescriptions" size="xl" />
+              </div>
+            </div>
+            <div class="flex items-center gap-2 mb-5 sm:hidden">
+              <span class="text-xs text-muted font-display">STEP DESCRIPTIONS</span>
+              <USwitch v-model="uiStore.showStepDescriptions" size="xl" />
+            </div>
             <p class="mb-1 text-xs font-light font-display">TRIGGER</p>
             <p class="mb-10">
               {{
@@ -151,13 +162,13 @@ onMounted(async () => {
             <p class="mb-3 text-xs font-light font-display">STEPS</p>
             <UTimeline
               :default-value="items.length"
-              :items="items"
+              :items="uiStore.showStepDescriptions ? items : items.map(i => ({ title: i.title }))"
               class="w-full mb-5"
               :ui="{ indicator: '!rounded-md' }"
             >
               <template #indicator="{ item }">
                 <span class="text-xs font-semibold leading-none">
-                  {{ (items.indexOf(item) + 1).toString().padStart(2, "0") }}
+                  {{ (items.findIndex(i => i.title === item.title) + 1).toString().padStart(2, "0") }}
                 </span>
               </template>
             </UTimeline>
