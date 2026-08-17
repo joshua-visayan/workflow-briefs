@@ -14,8 +14,8 @@ const workflowDetails = ref<WorkflowDetails | null>(null);
 const items = ref<TimelineItem[]>([]);
 const loading = ref(true);
 
-const convertSteps = (steps: string[]): TimelineItem[] =>
-  steps.map((step) => ({ title: step }));
+const convertSteps = (steps: string[], step_desc: string[]): TimelineItem[] =>
+  steps.map((step, index) => ({ title: step, description: step_desc[index] }));
 
 const goToOriginalPost = () => {
   window.open(workflowDetails.value?.source_url, "_blank");
@@ -33,7 +33,7 @@ function formatDate() {
 
 onMounted(async () => {
   workflowDetails.value = await getWorkflowDetails(id);
-  items.value = convertSteps(workflowDetails.value.suggested_steps);
+  items.value = convertSteps(workflowDetails.value.suggested_steps, workflowDetails.value.step_desc);
   loading.value = false;
 });
 </script>
