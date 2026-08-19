@@ -22,6 +22,7 @@ export const useWorkflowsStore = defineStore("workflows", () => {
   const totalCount = ref(0);
   const activeFilters = ref<string[]>([]);
   const activeConfidence = ref<string[]>([]);
+  const sortOrder = ref<"date-desc" | "date-asc" | "id-desc">("date-desc");
 
   const totalPages = computed(() => Math.ceil(totalCount.value / PAGE_SIZE));
 
@@ -48,6 +49,12 @@ export const useWorkflowsStore = defineStore("workflows", () => {
         query = query.in("confidence", activeConfidence.value);
       }
 
+      if (sortOrder.value === "id-desc") {
+        query = query.order("id", { ascending: false });
+      } else {
+        query = query.order("posted_date", { ascending: sortOrder.value === "date-asc" });
+      }
+
       const { data, error, count } = await query.range(from, to);
 
       if (error) {
@@ -64,5 +71,5 @@ export const useWorkflowsStore = defineStore("workflows", () => {
     }
   }
 
-  return { workflows, loading, connError, currentPage, totalCount, totalPages, activeFilters, activeConfidence, fetchWorkflows };
+  return { workflows, loading, connError, currentPage, totalCount, totalPages, activeFilters, activeConfidence, sortOrder, fetchWorkflows };
 });

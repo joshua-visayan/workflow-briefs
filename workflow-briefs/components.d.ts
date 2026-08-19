@@ -19,6 +19,7 @@ declare module 'vue' {
     UBadge: typeof import('./node_modules/.pnpm/@nuxt+ui@4.10.0_9b5751207b459749ba5bc06bafd8adf7/node_modules/@nuxt/ui/dist/runtime/components/Badge.vue')['default']
     UButton: typeof import('./node_modules/.pnpm/@nuxt+ui@4.10.0_9b5751207b459749ba5bc06bafd8adf7/node_modules/@nuxt/ui/dist/runtime/components/Button.vue')['default']
     UContainer: typeof import('./node_modules/.pnpm/@nuxt+ui@4.10.0_9b5751207b459749ba5bc06bafd8adf7/node_modules/@nuxt/ui/dist/runtime/components/Container.vue')['default']
+    UDropdownMenu: typeof import('./node_modules/.pnpm/@nuxt+ui@4.10.0_9b5751207b459749ba5bc06bafd8adf7/node_modules/@nuxt/ui/dist/runtime/components/DropdownMenu.vue')['default']
     UHeader: typeof import('./node_modules/.pnpm/@nuxt+ui@4.10.0_9b5751207b459749ba5bc06bafd8adf7/node_modules/@nuxt/ui/dist/runtime/components/Header.vue')['default']
     UIcon: typeof import('./node_modules/.pnpm/@nuxt+ui@4.10.0_9b5751207b459749ba5bc06bafd8adf7/node_modules/@nuxt/ui/dist/runtime/vue/components/Icon.vue')['default']
     UPage: typeof import('./node_modules/.pnpm/@nuxt+ui@4.10.0_9b5751207b459749ba5bc06bafd8adf7/node_modules/@nuxt/ui/dist/runtime/components/Page.vue')['default']
