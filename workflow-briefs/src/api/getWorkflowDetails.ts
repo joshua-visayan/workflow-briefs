@@ -9,7 +9,7 @@ export interface WorkflowDetails {
   posted_date: string;
   suggested_trigger: string;
   suggested_steps: string[];
-  step_desc: string[];
+  step_desc: string[] | null;
   suggested_output: string;
   notes: string;
   tools_mentioned: string[];

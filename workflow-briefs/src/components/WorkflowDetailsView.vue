@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { TimelineItem } from "@nuxt/ui";
-import { onMounted, ref } from "vue";
+import { computed, onMounted, ref } from "vue";
 import { useRoute } from "vue-router";
 import {
   getWorkflowDetails,
@@ -16,8 +16,10 @@ const workflowDetails = ref<WorkflowDetails | null>(null);
 const items = ref<TimelineItem[]>([]);
 const loading = ref(true);
 
-const convertSteps = (steps: string[], step_desc: string[]): TimelineItem[] =>
-  steps.map((step, index) => ({ title: step, description: step_desc[index] }));
+const stepDescAvailable = computed(() => workflowDetails.value?.step_desc != null);
+
+const convertSteps = (steps: string[], step_desc: string[] | null): TimelineItem[] =>
+  steps.map((step, index) => ({ title: step, description: step_desc?.[index] ?? "" }));
 
 const goToOriginalPost = () => {
   window.open(workflowDetails.value?.source_url, "_blank");
@@ -144,12 +146,24 @@ onMounted(async () => {
               >
               <div class="hidden sm:flex items-center gap-2">
                 <span class="text-xs text-muted font-display">STEP DESCRIPTIONS</span>
-                <USwitch v-model="uiStore.showStepDescriptions" size="xl" />
+                <UTooltip
+                  v-if="!stepDescAvailable"
+                  text="Step descriptions are not available for this job"
+                >
+                  <UIcon name="i-lucide-triangle-alert" class="size-4 text-yellow-400" />
+                </UTooltip>
+                <USwitch v-model="uiStore.showStepDescriptions" size="xl" :disabled="!stepDescAvailable" />
               </div>
             </div>
             <div class="flex items-center gap-2 mb-5 sm:hidden">
               <span class="text-xs text-muted font-display">STEP DESCRIPTIONS</span>
-              <USwitch v-model="uiStore.showStepDescriptions" size="xl" />
+              <UTooltip
+                v-if="!stepDescAvailable"
+                text="Step descriptions are not available for this job"
+              >
+                <UIcon name="i-lucide-triangle-alert" class="size-4 text-yellow-400" />
+              </UTooltip>
+              <USwitch v-model="uiStore.showStepDescriptions" size="xl" :disabled="!stepDescAvailable" />
             </div>
             <p class="mb-1 text-xs font-light font-display">TRIGGER</p>
             <p class="mb-10">
