@@ -41,7 +41,7 @@ function toggleConfidence(level: string) {
 </script>
 
 <template>
-  <UHeader title="Workflow Gallery" />
+  <UHeader title="Workflow Gallery" :toggle="false" />
   <UContainer>
     <UPage>
       <UPageHeader
@@ -50,8 +50,19 @@ function toggleConfidence(level: string) {
       />
 
       <UPageBody>
+        <!-- Tool filters: select on mobile, buttons on desktop -->
         <p class="mb-2 text-sm">Filters</p>
-        <div class="flex items-center justify-start gap-2 mb-4">
+        <div class="mb-4 sm:hidden">
+          <USelectMenu
+            v-model="store.activeFilters"
+            :items="FILTER_TOOLS"
+            multiple
+            placeholder="Tools"
+            class="w-56"
+            @update:model-value="() => { store.currentPage = 1; store.fetchWorkflows(1); }"
+          />
+        </div>
+        <div class="hidden sm:flex items-center justify-start gap-2 mb-4">
           <FilterButton
             v-for="tool in FILTER_TOOLS"
             :key="tool"
@@ -60,6 +71,8 @@ function toggleConfidence(level: string) {
             @toggle="toggleFilter"
           />
         </div>
+
+        <!-- AI Confidence filters (buttons on all screen sizes) -->
         <div class="flex items-center gap-1 mb-2">
           <p class="text-sm">AI Confidence</p>
           <UTooltip

@@ -8,7 +8,22 @@ import { storeToRefs } from "pinia";
 const router = useRouter();
 const store = useWorkflowsStore()
 
-const { currentPage, loading } = storeToRefs(store)
+const { currentPage, loading, sortOrder } = storeToRefs(store)
+
+type SortOrder = "date-desc" | "date-asc" | "id-desc";
+
+const sortOptions: { label: string; value: SortOrder; icon: string }[] = [
+  { label: "Newest first", value: "date-desc", icon: "i-lucide-arrow-down" },
+  { label: "Oldest first", value: "date-asc", icon: "i-lucide-arrow-up" },
+  { label: "Newly added", value: "id-desc", icon: "i-lucide-sparkles" },
+];
+
+const activeSortOption = computed(() => sortOptions.find(o => o.value === sortOrder.value)!);
+
+function setSort(value: SortOrder) {
+  sortOrder.value = value;
+  store.fetchWorkflows(1);
+}
 
 const goToDetails = (id: number) => {
   router.push(`details/${id}`);
@@ -54,7 +69,16 @@ onMounted(async () => {
       <p class="text-muted text-sm">No workflows match the selected filters. Try removing a filter or clearing them all.</p>
     </template>
     <template v-else>
-      <p class="mb-3 font-display text-sm">Showing {{ fromPost }}-{{ toPost }} of {{ store.totalCount }} posts</p>
+      <div class="flex items-center justify-between mb-3">
+        <p class="font-display text-sm">Showing {{ fromPost }}-{{ toPost }} of {{ store.totalCount }} posts</p>
+        <UDropdownMenu
+          :items="sortOptions.map(o => ({ label: o.label, icon: o.icon, onSelect: () => setSort(o.value) }))"
+        >
+          <UButton variant="outline" :icon="activeSortOption.icon" trailing-icon="i-lucide-chevron-down" size="sm">
+            {{ activeSortOption.label }}
+          </UButton>
+        </UDropdownMenu>
+      </div>
       <UPageGrid class="lg:grid-cols-2">
         <WorkflowCard
           v-for="workflow in store.workflows"
